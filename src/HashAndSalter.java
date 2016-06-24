@@ -49,10 +49,12 @@ public class HashAndSalter {
         return index;
     }
 
-    public void enteredPassword(String pw) {
+    public static String enteredPassword(String pw) {
         String password = pw;
 
         String hashSaltedPassword = hash(pw + salt());
+
+        return hashSaltedPassword;
 
     }
 
