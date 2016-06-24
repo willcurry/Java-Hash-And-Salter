@@ -8,19 +8,22 @@ public class HashAndSalter {
 
     public static String hash(String pw) {
         MessageDigest m = null;
+        String hashtext = null;
         try {
             m = MessageDigest.getInstance("MD5");
+            m.reset();
+            m.update(pw.getBytes());
+            BigInteger bigInt = new BigInteger(1, m.digest());
+            hashtext = bigInt.toString(16);
+
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        m.reset();
-        m.update(pw.getBytes());
-        BigInteger bigInt = new BigInteger(1, m.digest());
-        String hashtext = bigInt.toString(16);
 
-        while(hashtext.length() < 32 ){
-            hashtext = "0" + hashtext;
-        }
         return hashtext;
     }
 

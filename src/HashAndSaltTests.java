@@ -10,28 +10,10 @@ import static org.junit.Assert.assertEquals;
 
 public class HashAndSaltTests {
 
-    public static String hash(String pw) {
-        MessageDigest m = null;
-        try {
-            m = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        m.reset();
-        m.update(pw.getBytes());
-        BigInteger bigInt = new BigInteger(1, m.digest());
-        String hashtext = bigInt.toString(16);
-
-        while(hashtext.length() < 32 ){
-            hashtext = "0" + hashtext;
-        }
-        return hashtext;
-    }
-
     @Test
     public void checkPasswordFunction() {
         HashAndSalter hashAndSalter = new HashAndSalter();
-        assertEquals("".getClass(), hashAndSalter.enteredPassword("test").getClass());
+        assertEquals(String.class, hashAndSalter.enteredPassword("test").getClass());
     }
 
     @Test
@@ -43,7 +25,7 @@ public class HashAndSaltTests {
     @Test
     public void checkHash() {
         HashAndSalter hashAndSalter = new HashAndSalter();
-        assertEquals(hash("test"), hashAndSalter.hash("test"));
+        assertEquals("098f6bcd4621d373cade4e832627b4f6", hashAndSalter.hash("test"));
     }
 }
 
